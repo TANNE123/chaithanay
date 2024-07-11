@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <table></table>
+    <script>
+      let array = [];
+      for (let i = 0; i < 20; i++) {
+        let product = JSON.parse(localStorage.getItem("data" + i));
+        array.push(product);
+      }
+
+      let table = document.querySelector("table");
+
+      for (let i = 0; i < array.length; i++) {
+        let tr = document.createElement("tr");
+        let td = document.createElement("td");
+        td.innerHTML = array[i] == null ? "" : array[i].id;
+
+        let td_1 = document.createElement("td");
+        td_1.innerHTML = array[i] == null ? "" : array[i].title;
+
+        let td_2 = document.createElement("td");
+        td_2.innerHTML = array[i] == null ? "" : array[i].category;
+
+        let td_3 = document.createElement("td");
+        let img = document.createElement("img");
+        if (array[i] == null) {
+          td_3.append("");
+        } else {
+          img.src = array[i].image;
+          td_3.append(img);
+          let td_4 = document.createElement("td");
+          let btn = document.createElement("button");
+          btn.innerHTML = "clear";
+          td_4.append(btn);
+          btn.addEventListener("click", function () {
+            localStorage.removeItem("data" + i);
+            location.reload();
+          });
+          tr.append(td, td_1, td_2, td_3, td_4);
+          table.append(tr);
+        }
+      }
+    </script>
+  </body>
+</html>
